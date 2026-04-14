@@ -1,21 +1,37 @@
-{
-  "name": "equipment-rental-system",
-  "version": "1.0.0",
-  "description": "Web-based equipment rental management system with role-based login, CRUD operations, and rental workflows.",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^3.0.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0",
-    "dotenv": "^16.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.0"
-  }
-}
+const express = require('express');
+const dotenv = require('dotenv');
+const mysql = require('mysql2');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const equipmentRoutes = require('./routes/equipmentRoutes');
+const rentalRoutes = require('./routes/rentalRoutes');
 
+dotenv.config();
+const app = express();
+app.use(express.json());
+
+// MySQL connection
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME
+});
+
+db.connect(err => {
+  if (err) throw err;
+  console.log('MySQL Connected...');
+});
+
+// Routes
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
+app.use('/equipment', equipmentRoutes);
+app.use('/rentals', rentalRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Equipment Rental System API running...');
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
