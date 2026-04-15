@@ -14,7 +14,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: '127.0.0.1',
   user: 'admin',
-  password: 'pass',
+  password: '',
   database: 'equipment_rental'
 });
 
