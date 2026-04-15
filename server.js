@@ -11,22 +11,17 @@ const app = express();
 app.use(express.json());
 
 // MySQL connection
-const mysql = require('mysql2');
 const db = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: '', // or whatever you set
-  database: 'equipment_rental'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME
 });
 
 db.connect(err => {
-  if (err) {
-    console.error('Database connection failed:', err.stack);
-    return;
-  }
-  console.log('Connected to database.');
+  if (err) throw err;
+  console.log('MySQL Connected...');
 });
-
 
 // Routes
 app.use('/auth', authRoutes);
