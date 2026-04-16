@@ -30,17 +30,11 @@ You can download and install xamp app, download the repositories from the github
 ## Accessing the Frontend GUI
 
 - **Login Page** → [http://127.0.0.1/equipment-rental-system-main/frontend/login.html](http://127.0.0.1/equipment-rental-system-main/frontend/login.html)
+
 - **User Dashboard** → [http://127.0.0.1/equipment-rental-system-main/frontend/user-dashboard.html](http://127.0.0.1/equipment-rental-system-main/frontend/user-dashboard.html)
+
 - **Admin Dashboard** → [http://127.0.0.1/equipment-rental-system-main/frontend/admin-dashboard.html](http://127.0.0.1/equipment-rental-system-main/frontend/admin-dashboard.html)
 
-•	Login Page 
-http://127.0.0.1/equipment-rental-system-main/frontend/login.html
-
-•	User Dashboard 
-http://127.0.0.1/equipment-rental-system-main/frontend/user-dashboard.html
-
-•	Admin Dashboard 
-http://127.0.0.1/equipment-rental-system-main/frontend/admin-dashboard.html
 
 Demo Accounts
 •	Admin 
