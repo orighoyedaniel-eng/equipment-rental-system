@@ -21,3 +21,18 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     alert("Login failed. Check credentials.");
   }
 });
+
+// Dark mode toggle
+document.getElementById("toggleDarkMode").addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+});
+
+// Apply saved preference on load
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark-mode");
+}
