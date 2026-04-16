@@ -49,7 +49,7 @@ VALUES
 7. Configure Environment Variables
 Create a .env file in the project root:
 DB_HOST=127.0.0.1
-DB_USER=admin
+DB_USER=root
 DB_PASS=strongpassword
 DB_NAME=equipment_rental
 
