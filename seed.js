@@ -1,71 +1,65 @@
-const bcrypt = require("bcrypt");
-const sequelize = require("./config/database");
-const User = require("./models/User");
-const Equipment = require("./models/Equipment");
-const Rental = require("./models/Rental");
+// seed.js
 
-async function seed() {
+const sequelize = require('./config/database');
+const User = require('./models/User');
+const Equipment = require('./models/Equipment');
+const Rental = require('./models/Rental');
+const bcrypt = require('bcrypt');
+
+const seed = async () => {
   try {
+    // Sync database (drop and recreate tables)
     await sequelize.sync({ force: true });
-    console.log("Database synced");
+    console.log('✅ Database synced');
 
-    const adminPassword = await bcrypt.hash("admin123", 10);
-    const userPassword = await bcrypt.hash("user123", 10);
-
+    // Seed Users
+    const passwordHash = await bcrypt.hash('password123', 10);
     const admin = await User.create({
-      name: "Admin User",
-      email: "admin@example.com",
-      password_hash: adminPassword,
-      role: "admin"
+      name: 'Admin User',
+      email: 'admin@example.com',
+      password: passwordHash,
+      role: 'admin'
     });
 
-    const john = await User.create({
-      name: "John Doe",
-      email: "john@example.com",
-      password_hash: userPassword,
-      role: "user"
+    const user = await User.create({
+      name: 'Regular User',
+      email: 'user@example.com',
+      password: passwordHash,
+      role: 'user'
     });
 
-    const jane = await User.create({
-      name: "Jane Smith",
-      email: "jane@example.com",
-      password_hash: userPassword,
-      role: "user"
+    console.log('✅ Users seeded');
+
+    // Seed Equipment
+    const camera = await Equipment.create({
+      name: 'Camera',
+      description: 'Canon DSLR Camera',
+      available: true
     });
 
-    const excavator = await Equipment.create({
-      name: "Excavator",
-      category: "Heavy Machinery",
-      serial_number: "EXC-001",
-      item_condition: "Good",
-      quantity: 2
+    const projector = await Equipment.create({
+      name: 'Projector',
+      description: 'HD Projector',
+      available: true
     });
 
-    const mixer = await Equipment.create({
-      name: "Concrete Mixer",
-      category: "Construction",
-      serial_number: "CMX-101",
-      item_condition: "Excellent",
-      quantity: 5
-    });
+    console.log('✅ Equipment seeded');
 
-    const chainsaw = await Equipment.create({
-      name: "Chainsaw",
-      category: "Tools",
-      serial_number: "CHS-555",
-      item_condition: "Fair",
-      quantity: 10
-    });
-
+    // Seed Rentals
     await Rental.create({
-      user_id: john.id,
-      equipment_id: excavator.id,
-      status: "rented",
-      due_date: new Date(Date.now() + 7*24*60*60*1000)
+      userId: user.id,
+      equipmentId: camera.id,
+      rentedAt: new Date(),
+      returnedAt: null
     });
 
-    await Rental.create({
-      user_id: jane.id,
-      equipment_id: mixer.id,
-      status: "rented",
-      due_date: new Date(Date.now() +
+    console.log('✅ Rentals seeded');
+
+    process.exit();
+  } catch (err) {
+    console.error('❌ Seeding failed:', err);
+    process.exit(1);
+  }
+};
+
+seed();
