@@ -48,3 +48,10 @@ document.getElementById("toggleDarkMode").addEventListener("click", () => {
 if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark-mode");
 }
+
+// Logout functionality
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("token");   // Clear JWT
+  localStorage.removeItem("theme");   // Optional: clear theme preference
+  window.location.href = "login.html"; // Redirect to login page
+});
