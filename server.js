@@ -1,27 +1,38 @@
-const express = require("express");
-const path = require("path");
-const sequelize = require("./config/database");
+// server.js
 
-// Import routes
-const authRoutes = require("./routes/auth");
-const equipmentRoutes = require("./routes/equipment");
-const rentalRoutes = require("./routes/rentals");
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const sequelize = require('./config/database'); // make sure you have config/database.js
+const authRoutes = require('./routes/auth');     // routes/auth.js
+const equipmentRoutes = require('./routes/equipment'); // routes/equipment.js
+const rentalRoutes = require('./routes/rental'); // routes/rental.js
 
 const app = express();
-app.use(express.json());
 
-// Serve frontend files
-app.use(express.static(path.join(__dirname, "../frontend")));
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// API routes
-app.use("/api/auth", authRoutes);
-app.use("/api/equipment", equipmentRoutes);
-app.use("/api/rentals", rentalRoutes);
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/equipment', equipmentRoutes);
+app.use('/api/rentals', rentalRoutes);
 
-// Sync DB
+// Test route
+app.get('/', (req, res) => {
+  res.send('Equipment Rental System Backend is running');
+});
+
+// Sync database and start server
 sequelize.sync()
-  .then(() => console.log("Database connected"))
-  .catch(err => console.error("DB error:", err));
-
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  .then(() => {
+    console.log('Database connected');
+    app.listen(3000, () => {
+      console.log('Server running on http://localhost:3000');
+    });
+  })
+  .catch(err => {
+    console.error('Database connection failed:', err);
+  });
