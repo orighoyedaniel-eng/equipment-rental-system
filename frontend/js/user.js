@@ -76,3 +76,18 @@ document.getElementById("searchForm").addEventListener("submit", (e) => {
 // Initial load
 loadEquipment();
 loadRentals();
+
+document.getElementById("toggleDarkMode").addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  // Save preference
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+});
+
+// Apply saved preference on load
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark-mode");
+}

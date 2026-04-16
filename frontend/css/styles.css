@@ -58,3 +58,38 @@ table td, table th {
 .container {
   max-width: 900px;
 }
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode h2 {
+  color: #90caf9;
+}
+
+body.dark-mode form,
+body.dark-mode table {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+body.dark-mode table th {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark-mode .btn-primary {
+  background-color: #1976d2;
+}
+
+body.dark-mode .btn-success {
+  background-color: #2e7d32;
+}
+
+body.dark-mode .btn-warning {
+  background-color: #fbc02d;
+  color: #000;
+}
+
