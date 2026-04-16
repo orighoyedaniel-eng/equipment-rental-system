@@ -60,9 +60,9 @@ DB_PASS=strongpassword
 DB_NAME=equipment_rental
 
 
-##  Troubleshooting
+**##  Troubleshooting**
 
-### Access denied for user
+**### Access denied for user**
 If you see:
 ERROR 1698 (28000): Access denied for user 'root'@'localhost'
 - Make sure you are using the correct username and password.
