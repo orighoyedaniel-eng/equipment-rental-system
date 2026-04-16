@@ -9,3 +9,10 @@ Coursework project: Equipment Rental Management System  includes secure login, a
 git clone https://github.com/orighoyedaniel-eng/equipment-rental-system.git
 cd equipment-rental-system
 
+
+## Database Interface (GUI)
+
+Below is a screenshot of the PostgreSQL interface showing the `equipment_rental` schema:
+
+![PostgreSQL GUI Screenshot](docs/postgres-gui.png)
+
