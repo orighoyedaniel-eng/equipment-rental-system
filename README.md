@@ -14,5 +14,5 @@ cd equipment-rental-system
 
 Below is a screenshot of the PostgreSQL interface showing the `equipment_rental` schema:
 
-![PostgreSQL GUI Screenshot](docs/sql-gui.png)
+![PostgreSQL GUI Screenshot](docs/postgres-gui.png)
 
