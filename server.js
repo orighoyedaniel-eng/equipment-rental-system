@@ -1,7 +1,8 @@
-const sequelize = require("./config/database");
-const User = require("./models/User");
-const Equipment = require("./models/Equipment");
-const Rental = require("./models/Rental");
+const sequelize = require("/workspaces/equipment-rental-system/config/database.js");
+const User = require("/workspaces/equipment-rental-system/models/User.js");
+const Equipment = require("/workspaces/equipment-rental-system/models/Equipment.js");
+const Rental = require("/workspaces/equipment-rental-system/models/Rental.js");
+
 
 sequelize.sync({ alter: true })
   .then(() => console.log("Database synced"))
