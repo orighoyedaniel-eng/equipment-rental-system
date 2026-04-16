@@ -44,6 +44,6 @@ CREATE TABLE rentals (
 
 INSERT INTO rentals (user_id, equipment_id, rent_date, status)
 VALUES
-  (2, 1, NOW(), 'rented'),
-  (3, 2, NOW(), 'rented'),
-  (2, 3, NOW(), 'returned');
+  (2, 1, NOW(), 'rented'),   -- John Doe rents Excavator
+  (3, 2, NOW(), 'rented'),   -- Jane Smith rents Concrete Mixer
+  (2, 3, NOW(), 'returned'); -- John Doe returned Chainsaw
