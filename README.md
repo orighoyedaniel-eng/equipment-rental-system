@@ -25,6 +25,14 @@ or
 
 You can download and install xamp app, download the repositories from the github, unzipped and copy the unzipped folder 'equipment-rental-system-main' and paste it inside the htdocs folder on xamp directory 'C:\xampp\htdocs', start the Apache on the xamp  and run those link below on the browser.
 
+# Equipment Rental System
+
+## Accessing the Frontend GUI
+
+- **Login Page** → [http://127.0.0.1/equipment-rental-system-main/frontend/login.html](http://127.0.0.1/equipment-rental-system-main/frontend/login.html)
+- **User Dashboard** → [http://127.0.0.1/equipment-rental-system-main/frontend/user-dashboard.html](http://127.0.0.1/equipment-rental-system-main/frontend/user-dashboard.html)
+- **Admin Dashboard** → [http://127.0.0.1/equipment-rental-system-main/frontend/admin-dashboard.html](http://127.0.0.1/equipment-rental-system-main/frontend/admin-dashboard.html)
+
 •	Login Page 
 http://127.0.0.1/equipment-rental-system-main/frontend/login.html
 
