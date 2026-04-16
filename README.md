@@ -97,10 +97,6 @@ If the app cannot connect to the database:
 •	DB_PASS=yourpassword
 •	DB_NAME=equipment_rental
 
-## Database Interface (GUI)
 
-Below is a screenshot of the database interface showing the `equipment_rental` schema:
-
-![SQL GUI Screenshot](docs/sql-gui.png)
 
 
