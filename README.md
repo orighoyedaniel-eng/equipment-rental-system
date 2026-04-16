@@ -4,7 +4,7 @@ Coursework project: Equipment Rental Management System  includes secure login, a
 
 ## Getting Started
 
-### 1. Clone the Repository
+1. Clone the Repository
 ```bash
 git clone https://github.com/orighoyedaniel-eng/equipment-rental-system.git
 cd equipment-rental-system
