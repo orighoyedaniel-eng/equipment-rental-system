@@ -1,4 +1,4 @@
--- PostgreSQL schema for Equipment Rental System
+-- sql schema for Equipment Rental System
 
 -- Users table
 CREATE TABLE users (
