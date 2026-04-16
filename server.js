@@ -3,11 +3,15 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const sequelize = require('./config/database'); // make sure you have config/database.js
-const authRoutes = require('./routes/auth');     // routes/auth.js
-const equipmentRoutes = require('./routes/equipment'); // routes/equipment.js
-const rentalRoutes = require('./routes/rental'); // routes/rental.js
+const sequelize = require('./config/database');
 
+// Import routes
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const equipmentRoutes = require('./routes/equipment');
+const rentalRoutes = require('./routes/rental');
+
+// Initialize app
 const app = express();
 
 // Middleware
@@ -17,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/equipment', equipmentRoutes);
 app.use('/api/rentals', rentalRoutes);
 
@@ -28,11 +33,11 @@ app.get('/', (req, res) => {
 // Sync database and start server
 sequelize.sync()
   .then(() => {
-    console.log('Database connected');
+    console.log('✅ Database connected');
     app.listen(3000, () => {
-      console.log('Server running on http://localhost:3000');
+      console.log('🚀 Server running on http://localhost:3000');
     });
   })
   .catch(err => {
-    console.error('Database connection failed:', err);
+    console.error('❌ Database connection failed:', err);
   });
