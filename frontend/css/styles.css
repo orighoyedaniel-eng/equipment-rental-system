@@ -1,0 +1,60 @@
+/* General page styling */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Centered headings */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0d6efd; /* Bootstrap primary blue */
+}
+
+/* Forms */
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Tables */
+table {
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+table th {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+table td, table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+}
+
+.btn-success {
+  background-color: #198754;
+  border: none;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  color: #000;
+}
+
+/* Dashboard spacing */
+.container {
+  max-width: 900px;
+}
