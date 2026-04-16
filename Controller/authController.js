@@ -1,57 +1,81 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const mysql = require('mysql2/promise');
+// controllers/authController.js
 
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+// ➡️ Register a new user
 exports.register = async (req, res) => {
-  const { name, email, password, role } = req.body;
   try {
-    const connection = await mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME
+    const { name, email, password, role } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user
+    const newUser = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role: role || 'user'
     });
 
-    const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
-    if (rows.length > 0) return res.status(400).json({ msg: 'User already exists' });
-
-    const salt = await bcrypt.genSalt(10);
-    const password_hash = await bcrypt.hash(password, salt);
-
-    await connection.execute(
-      'INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)',
-      [name, email, password_hash, role]
-    );
-
-    res.json({ msg: 'User registered successfully' });
+    res.status(201).json({ message: 'User registered successfully', user: newUser });
   } catch (err) {
-    res.status(500).send('Server error');
+    res.status(500).json({ error: 'Failed to register user' });
   }
 };
 
+// ➡️ Login user
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
   try {
-    const connection = await mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME
-    });
+    const { email, password } = req.body;
 
-    const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
-    if (rows.length === 0) return res.status(400).json({ msg: 'Invalid credentials' });
+    // Find user
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
 
-    const user = rows[0];
-    const isMatch = await bcrypt.compare(password, user.password_hash);
-    if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+    // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
 
-    const payload = { user: { id: user.id, role: user.role } };
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-      if (err) throw err;
-      res.json({ token });
-    });
+    // Generate JWT
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+      'your_jwt_secret', // replace with env variable in production
+      { expiresIn: '1h' }
+    );
+
+    res.json({ message: 'Login successful', token, user });
   } catch (err) {
-    res.status(500).send('Server error');
+    res.status(500).json({ error: 'Failed to login user' });
+  }
+};
+
+// ➡️ Verify token (middleware)
+exports.verifyToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Bearer <token>
+
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied, token missing' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, 'your_jwt_secret'); // same secret as above
+    req.user = decoded;
+    next();
+  } catch (err) {
+    res.status(403).json({ error: 'Invalid or expired token' });
   }
 };
